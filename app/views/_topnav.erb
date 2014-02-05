@@ -1,0 +1,8 @@
+<% if @session %>
+<a href = '/profile'>Hi <%= User.find(session[:user_id]).username%></a>
+<%end%>
+<a href = '/submit'>Submit</a>
+
+<a href = '/signout'>Signout</a>
+
+<a href = '/'>Home</a>

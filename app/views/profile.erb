@@ -1,0 +1,18 @@
+<%= erb :_topnav%>
+hi
+<%= @user%>
+
+
+<h2>Posts</h2>
+<% @posts.each do |post|%>
+<li><a href ="<%= post.link%>"><%=post.title%></a></li>
+<%end%></br>
+
+<h2>Comments</h2>
+<% @comments.each do |comment|%>
+<li><%= comment.text%></li>
+<%end%>
+
+
+
+

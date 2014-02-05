@@ -1,4 +1,5 @@
 get '/' do
+  @session = session
   @all_posts = Post.all
   erb :index
 end
@@ -30,13 +31,14 @@ post '/login' do
 end
 
 get '/comment/:id' do
+ @session = session
  @post = Post.find(params[:id])
  @comments = Post.find(params[:id]).comments
  erb :comments
 end
 
 post '/com' do
-puts params
+
   Comment.create(text: params[:text], user_id: session[:user_id], post_id: params[:id] )
   redirect "/comment/#{params[:id]}"
 end
@@ -44,3 +46,27 @@ end
 # get 'error/:error' do
 #   erb :error
 # end
+get '/profile' do
+  @user = User.find(session[:user_id]).username
+  user_obj = User.find(session[:user_id])
+  @comments = user_obj.comments
+  @posts = user_obj.posts
+  @session = session
+  erb :profile
+end
+
+get '/submit' do
+  erb :submit
+end
+
+post '/submit' do
+  Post.create(user_id: session[:user_id], title: params[:title], link: params[:link])
+  @session = session
+  redirect '/'
+end
+
+get '/signout' do
+  session.clear
+  redirect '/'
+end
+
