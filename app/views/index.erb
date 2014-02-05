@@ -1,0 +1,8 @@
+<div class="container">
+  <h1>Hi, this is Hacker News</h1>
+ <%@all_posts.each do |post|%>
+ <li><a href = "<%= post.link %>" ><%= post.title %></a> <a href ="/comment/<%=post.id%>">comment</a></li>
+ <%end%>
+
+   <a href = "/signup">Signup</a>
+</div>
