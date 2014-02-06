@@ -1,3 +1,4 @@
+require 'pry'
 get '/' do
   @session = session
   @all_posts = Post.all
@@ -25,8 +26,10 @@ post '/create' do
 end
 
 post '/login' do
+  puts params
   user_id = User.find_by(username: params[:username]).id
   session[:user_id] = user_id
+  puts session
   redirect '/'
 end
 
@@ -38,8 +41,9 @@ get '/comment/:id' do
 end
 
 post '/com' do
-
-  Comment.create(text: params[:text], user_id: session[:user_id], post_id: params[:id] )
+  comment = Comment.create(text: params[:text], user_id: session[:user_id], post_id: params[:id] )
+  comment_id = comment.id
+  Commentvote.create!(comment_id: comment_id)
   redirect "/comment/#{params[:id]}"
 end
 
@@ -56,11 +60,14 @@ get '/profile' do
 end
 
 get '/submit' do
+  @session = session
   erb :submit
 end
 
 post '/submit' do
-  Post.create(user_id: session[:user_id], title: params[:title], link: params[:link])
+  post = Post.create(user_id: session[:user_id], title: params[:title], link: params[:link])
+  post_id = post.id
+  Postvote.create!(post_id: post_id)
   @session = session
   redirect '/'
 end
@@ -70,3 +77,13 @@ get '/signout' do
   redirect '/'
 end
 
+post '/up' do
+  post_id = params[:hidden].to_i
+  post = Post.find(post_id)
+  postvote = post.postvotes[0]
+  postvote.upvote
+  postvote.save
+
+  postvote.votes.to_s
+
+end

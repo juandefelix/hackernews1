@@ -3,10 +3,30 @@
 <div class="container">
   <h1>Hi, this is Hacker News</h1>
  <%@all_posts.each do |post|%>
- <li><a href = "<%= post.link %>" ><%= post.title %></a> <a href ="/comment/<%=post.id%>">comment</a></li>
- <%end%>
+ </br>
+ <li>
 
-   <a href = "/signup">Signup</a>
+  <a href = "<%= post.link %>" ><%= post.title %></a>
+
+  <a href ="/comment/<%=post.id%>">comment</a></li>
+ <!-- <p>post_id = <%= post.id%></p> -->
+  <form action ="/up" method="post">
+  <input type='hidden' value="<%= post.id %>" name="hidden">
+  <input type="submit" value="up" class="up">
+ <!--  <button type="button" class="down" data-post-id="<%= post.id %>">DOWN</button> -->
+</form>
+
+</br>
+
+  <p id='vote<%=post.id%>'> votes: 0</p>
+
+ <%end%>
+</br>
+  <a href = "/signup">Signup</a>
 </div>
 
 
+
+
+
+<script src="/js/application.js"></script>
