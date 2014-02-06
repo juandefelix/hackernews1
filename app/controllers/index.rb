@@ -78,9 +78,10 @@ get '/signout' do
 end
 
 post '/up' do
-  post_id = params[:hidden].to_i
+  post_id = params[:id].to_i
   post = Post.find(post_id)
   postvote = post.postvotes[0]
+  # binding.pry
   postvote.upvote
   postvote.save
 

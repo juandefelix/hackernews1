@@ -17,23 +17,25 @@
 
 $(document).ready(function(){
 
-  var up = $(".up")
+  // var up = $(".up")
 
   $("form").submit(function(e){
     e.preventDefault();
-    $.ajax({
-    type: "POST",
-    url : '/up',
-    data : $("form").serialize(),
-    success : function(result){
-      console.log(result);
-    }
-   });
-  });
-  // })
+    $.post( "/up",  $("form").serialize(), function(data){
+      console.log(data)
+    });
 
-  // $.post( "/up", $("form").serialize(), function(data){
-  //     console.log('success')
-  //   });
+    
+  });
+
+
+
+  // $.ajax({
+  //   type: "POST",
+  //   url : '/up',
+  //   data : e.serialize();
+  //   success : function(result){
+  //     console.log("hola");}
+  //  });
 
 });
