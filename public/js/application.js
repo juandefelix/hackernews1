@@ -22,10 +22,10 @@ $(document).ready(function(){
   $("form").submit(function(e){
     e.preventDefault();
     $.post( "/up",  $("form").serialize(), function(data){
-      console.log(data)
+      console.log(e.target);
     });
 
-    
+
   });
 
 
