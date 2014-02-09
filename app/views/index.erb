@@ -10,15 +10,14 @@
 
   <a href ="/comment/<%=post.id%>">comment</a></li>
  <!-- <p>post_id = <%= post.id%></p> -->
-  <form action ="/up" method="post">
-  <input type='hidden' value="<%= post.id %>" name="id">
+<form action ="/up" method="post" data-id="<%= post.id %>">
   <input type="submit" value="vote up" class="up">
  <!--  <button type="button" class="down" data-post-id="<%= post.id %>">DOWN</button> -->
 </form>
 
 </br>
 
-  <p id='vote<%=post.id%>'> votes: 0</p>
+  <p id='vote<%=post.id%>'> votes: <%= post.postvotes[0].votes%></p>
 
  <%end%>
 </br>
